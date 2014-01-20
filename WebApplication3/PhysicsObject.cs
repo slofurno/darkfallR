@@ -17,7 +17,7 @@ namespace daggersRage
         public int id;
         public static int nextid = 0;
         public string type;
-        public string name;
+        public string name = " ";
         public int life;
         public int frame = 0;
         public float halfheight;
@@ -45,6 +45,12 @@ namespace daggersRage
         public virtual void RegisterHit(PhysicsObject po)
         {
 
+
+        }
+
+        public UpdatePacket getUpdatePacket()
+        {
+            return new UpdatePacket(this);
 
         }
         public virtual bool getDown()
@@ -550,6 +556,53 @@ namespace daggersRage
 
     }
 
+    public class UpdatePacket
+    {
+
+        public int id;
+        public PS state;
+        public string type;
+        public float halfheight;
+        public int life;
+        public string name;
+
+
+
+        public UpdatePacket(PhysicsObject p)
+        {
+
+            this.id = p.id;
+            this.state = new PS((int)p.currentstate.x_velocity, (int)p.currentstate.y_velocity, (int)p.currentstate.x_position, (int)p.currentstate.y_position);
+            this.type = p.type;
+            this.halfheight = p.halfheight;
+            this.life = p.life;
+            this.name = p.name;
+
+
+        }
+
+
+    }
+
+    public class PS
+    {
+        public int vx;
+        public int vy;
+        public int px;
+        public int py;
+
+        public PS(int vx, int vy, int px, int py)
+        {
+            this.vx = vx;
+            this.vy = vy;
+            this.px = px;
+            this.py = py;
+
+        }
+
+
+    }
+
     public class PhysicalState
     {
 
@@ -564,6 +617,15 @@ namespace daggersRage
             y_velocity = 0;
             x_position = 0;
             y_position = 0;
+
+        }
+
+        public PhysicalState(double vx, double vy, double px, double py)
+        {
+            this.x_velocity = vx;
+            this.y_velocity = vy;
+            this.x_position = px;
+            this.y_position = py;
 
         }
 

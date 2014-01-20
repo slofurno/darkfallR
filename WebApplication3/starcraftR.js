@@ -31,10 +31,10 @@ function State(state) {
 
     var self = this;
 
-    this.x_position = state.x_position;
-    this.y_position = state.y_position;
-    this.x_velocity = state.x_velocity;
-    this.y_velocity = state.y_velocity;
+    this.x_position = state.px;
+    this.y_position = state.py;
+    this.x_velocity = state.vx;
+    this.y_velocity = state.vy;
 
 
 
@@ -70,10 +70,10 @@ function dProj(newid, newstate, type) {
         this.oldstate.x_velocity = this.state.x_velocity;
         this.oldstate.y_velocity = this.state.y_velocity;
 
-        this.state.x_position = newstate.x_position;
-        this.state.y_position = newstate.y_position;
-        this.state.x_velocity = newstate.x_velocity;
-        this.state.y_velocity = newstate.y_velocity;
+        this.state.x_position = newstate.px;
+        this.state.y_position = newstate.py;
+        this.state.x_velocity = newstate.vx;
+        this.state.y_velocity = newstate.vy;
 
     };
 
@@ -341,6 +341,8 @@ $(function () {
 
         //var newproj;
 
+        //console.log(arr.toString());
+
         $.each(arr, function (index, proj) {
 
 
@@ -399,7 +401,8 @@ $(function () {
 
         var newplayerobject = true;
 
-
+        //console.log(objectarray);
+        
 
         $.each(objectarray, function (index, object) {
 
@@ -419,8 +422,8 @@ $(function () {
 
 
 
-                wtfx = parseFloat(object.currentstate.x_position);
-                wtfy = parseFloat(object.currentstate.y_position);
+                wtfx = parseFloat(object.state.px);
+                wtfy = parseFloat(object.state.py);
 
                 if (wtfx > oldwtfx) {
                     wtfleft = false;
@@ -430,7 +433,7 @@ $(function () {
                 }
 
                 newplayerobject = false;
-                myspell.recupdate(wtfx, wtfy, parseInt(object.castingspell));
+                //myspell.recupdate(wtfx, wtfy, parseInt(object.castingspell));
 
             }
             else {
@@ -439,7 +442,7 @@ $(function () {
 
                     if (parseFloat(object.id) == pl.id) {
 
-                        pl.updateState(object.currentstate);
+                        pl.updateState(object.state);
                         pl.life = object.life;
                         newplayerobject = false;
 
@@ -459,14 +462,14 @@ $(function () {
             if (newplayerobject) {
 
                 if (object.type == "mob") {
-                    playerarray[playerarraylength] = new dProj(parseFloat(object.id), object.currentstate, turtle);
+                    playerarray[playerarraylength] = new dProj(parseFloat(object.id), object.state, turtle);
                 }
                 else if (object.type == "player") {
 
-                    playerarray[playerarraylength] = new dProj(parseFloat(object.id), object.currentstate, player1);
+                    playerarray[playerarraylength] = new dProj(parseFloat(object.id), object.state, player1);
                 }
                 else {
-                    playerarray[playerarraylength] = new dProj(parseFloat(object.id), object.currentstate, shell);
+                    playerarray[playerarraylength] = new dProj(parseFloat(object.id), object.state, shell);
 
                 }
                 playerarray[playerarraylength].halfheight = object.halfheight;

@@ -1579,6 +1579,7 @@ namespace daggersRage
 
                         if (tempindex.x <= 0 || tempindex.y <= 0 || tempindex.x >= levelwidth - 1 || tempindex.y >= levelheight - 1)
                         {
+                            p.life = 0;
                             //object is out of range
 
                         }
@@ -1716,22 +1717,76 @@ namespace daggersRage
                     }
                 }
 
-                stopwatch.Stop();
+              
+
+                    stopwatch.Stop();
                 var elap = stopwatch.ElapsedTicks;
                 
                 //Debug.WriteLine("elpsed time : " + elap.ToString());
 
 
-                hubcontext.Clients.All.updateState(this.playerArray.ToArray());
-                hubcontext.Clients.All.updateProjectiles(this.pointArray.ToArray());
+                UpdatePacket[] uparray = new UpdatePacket[playerArray.Count];
+                for (int i = 0; i < playerArray.Count; i++)
+                {
+                    uparray[i] = playerArray[i].getUpdatePacket();
+                }
+
+                hubcontext.Clients.All.updateState(uparray);
+
+                string tempstring = JsonConvert.SerializeObject(uparray);
+
+                Debug.WriteLine("length of new update : " + tempstring.Length);
+
+                tempstring = JsonConvert.SerializeObject(this.playerArray.ToArray());
+
+                Debug.WriteLine("length of old update : " + tempstring.Length);
+
+                //hubcontext.Clients.All.updateState(this.playerArray.ToArray());
+                //hubcontext.Clients.All.updateProjectiles(this.pointArray.ToArray());
                 //context.Clients.All.updateEffects();
+
+                uparray = new UpdatePacket[pointArray.Count];
+                for (int i = 0; i < pointArray.Count; i++)
+                {
+                    uparray[i] = pointArray[i].getUpdatePacket();
+                }
+
+
+                hubcontext.Clients.All.updateProjectiles(uparray);
+
+
+                tempstring = JsonConvert.SerializeObject(uparray);
+
+                Debug.WriteLine("length of new point update : " + tempstring.Length);
+
+                tempstring = JsonConvert.SerializeObject(this.pointArray.ToArray());
+
+                
+                Debug.WriteLine("length of old point update : " + tempstring.Length);
+
 
 
                 if (this.updatedblocks.Count > 0)
                 {
 
                     hubcontext.Clients.All.updateBlocks(this.updatedblocks.ToArray());
+                    tempstring = JsonConvert.SerializeObject(this.updatedblocks.ToArray());
+
+                    Debug.WriteLine("length of block update : " + tempstring.Length);
+
                     this.updatedblocks.Clear();
+                }
+
+
+                  for (int i = pointArray.Count - 1; i >= 0; i--)
+                {
+                    if (pointArray[i].life == 0)
+                    {
+
+                        pointArray.RemoveAt(i);
+
+                    }
+
                 }
 
 
