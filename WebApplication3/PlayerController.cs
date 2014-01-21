@@ -17,6 +17,7 @@ namespace daggersRage
         public int MOUSEY;
         public int RECENTKEY;
 
+        public float MOUSEANGLE;
 
         public PlayerController()
         {
@@ -29,7 +30,7 @@ namespace daggersRage
             MOUSEY = 0;
             MOUSEDOWN = false;
             RECENTKEY = 1;
-
+            this.MOUSEANGLE = 0;
 
         }
 

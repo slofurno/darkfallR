@@ -119,6 +119,12 @@
     <Content Include="img\lothar.png" />
     <Content Include="img\luigi.gif" />
     <Content Include="img\luigileft.gif" />
+    <Content Include="img\marinegunleft.png" />
+    <Content Include="img\marinehead.png" />
+    <Content Include="img\marineheadleft.png" />
+    <Content Include="img\marineone.png" />
+    <Content Include="img\marineoneleft.png" />
+    <Content Include="img\marinetwo.png" />
     <Content Include="img\red.gif" />
     <Content Include="img\shell.gif" />
     <Content Include="img\ship.png" />
@@ -134,6 +140,8 @@
     <Content Include="index.html" />
     <Content Include="packages.config" />
     <Content Include="data\movie.json" />
+    <None Include="Properties\PublishProfiles\slofurno1 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\slofurno1 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\slofurno4 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\slofurno4 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
@@ -146,7 +154,9 @@
     <Content Include="starcraftR.js" />
     <Content Include="starcraftRx.js" />
     <Content Include="warcraftR.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\jquery-2.0.3.min.map" />
   </ItemGroup>
   <ItemGroup>

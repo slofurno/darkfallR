@@ -30,6 +30,8 @@ namespace daggersRage
         public bool grounded = true;
         public bool wasgrounded = true;
         public int castingspell = 0;
+        public int face = 1;
+        public float lookangle = 0;
 
         public PhysicsObject()
         {
@@ -244,6 +246,8 @@ namespace daggersRage
         {
             this.invul = false;
 
+            this.lookangle = this.playerInput.MOUSEANGLE;
+
             desiredstate.y_velocity = currentstate.y_velocity;
             desiredstate.x_velocity = currentstate.x_velocity;
 
@@ -267,7 +271,7 @@ namespace daggersRage
 
                 }
 
-
+                this.face = -1;
 
 
 
@@ -285,6 +289,8 @@ namespace daggersRage
                     desiredstate.x_velocity = runspeed;
 
                 }
+
+                this.face = 1;
 
 
             }
@@ -565,7 +571,8 @@ namespace daggersRage
         public float halfheight;
         public int life;
         public string name;
-
+        public int face;
+        public float angle;
 
 
         public UpdatePacket(PhysicsObject p)
@@ -577,6 +584,8 @@ namespace daggersRage
             this.halfheight = p.halfheight;
             this.life = p.life;
             this.name = p.name;
+            this.face = p.face;
+            this.angle = p.lookangle;
 
 
         }

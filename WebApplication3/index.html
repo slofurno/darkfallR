@@ -16,6 +16,14 @@
             padding: 20px;
             margin: 20px;
         }
+        canvas, img {
+            image-rendering: optimizeSpeed;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: optimize-contrast;
+            -ms-interpolation-mode: nearest-neighbor;
+
+        }
 
          .draggable { width: 100px; height: 100px; position:relative; display:inline; }
           li:hover { background:yellow; }
@@ -28,7 +36,7 @@
     <input type="button" id="sendmessage" value="Click to start" />
 
     
-    <canvas id="daggerctx" width="700" height="400" style="position:absolute; width:1400px; height:800px; left: 20px; top: 20px; z-index: 1;"></canvas> 
+    <canvas id="daggerctx" width="1400" height="800" style="position: absolute; width: 1400px; height: 800px; left: 20px; top: 20px; z-index: 1;"></canvas> 
 
     <canvas id="overlayctx" width="800" height="100" style="position: absolute; left: 20px; top: 840px; z-index: 2;"></canvas> 
 

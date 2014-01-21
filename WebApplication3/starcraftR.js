@@ -1,6 +1,7 @@
 ﻿
 var particlearray;
 var currentangle;
+var gunangle;
 var ctx;
 
 var mouseX;
@@ -18,6 +19,9 @@ var update_s = update_ms / 1000;
 var lastupdate = 0;
 var currenttime = 0;
 
+var wtfface = 1;
+var wtfangle = 0;
+
 var halfresx = 0;
 var halfresy = 0;
 
@@ -25,6 +29,18 @@ var myspell = new spellfire();
 var caststart = 0;
 
 var writeblock = false;
+
+var lothargun = new Image();
+lothargun.src = 'img/marinetwo.png';
+
+var lothargunleft = new Image();
+lothargunleft.src = 'img/marinegunleft.png';
+
+var lotharhead = new Image();
+lotharhead.src = 'img/marinehead.png';
+
+var lotharheadleft = new Image();
+lotharheadleft.src = 'img/marineheadleft.png';
 
 
 function State(state) {
@@ -172,11 +188,16 @@ $(function () {
     var canvas = document.getElementById('daggerctx');
     ctx = canvas.getContext('2d');
 
+
+    ctx.mozImageSmoothingEnabled = false;
+    ctx.webkitImageSmoothingEnabled = false;
+    ctx.msImageSmoothingEnabled = false;
     ctx.imageSmoothingEnabled = false;
 
-
-    var CANVASWIDTH = 1400//canvas.width;
-    var CANVASHEIGHT = 800//canvas.height;
+    //ctx.translate(.5,.5);
+    ctx.scale(2,2);
+    var CANVASWIDTH = 1400//canvas.width; 1400
+    var CANVASHEIGHT = 800//canvas.height;800
 
     var canvasrenderwidth = 700;
     var canvasrenderheight = 400;
@@ -253,6 +274,37 @@ $(function () {
     var ladder = new Image();
     ladder.src = 'img/ladder.gif';
 
+    var lotharunit;
+    var lotharunitleft;
+
+    var lothararray = [[175, 3, 19, 35], [146, 4, 20, 34], [27, 4, 16, 35], [112, 5, 25, 33], [4, 5, 18, 34], [46, 5, 26, 34], [77, 6, 30, 32], [202, 7, 21, 32]];
+
+    var lotharleftarray = [[30, 3, 19, 35], [58, 4, 20, 34], [87, 5, 25, 33], [181, 4, 16, 35], [117, 6, 30, 32], [152, 5, 26, 34], [202, 5, 18, 34], [1, 7, 21, 32]];
+
+    var lothar = new Image();
+    lothar.src = 'img/marineone.png';
+
+    var lotharleft = new Image();
+    lotharleft.src = 'img/marineoneleft.png';
+
+    lotharleft.onload = function () {
+
+        lotharunitleft = new Model(lotharleft, lotharleftarray, true);
+        
+    };
+
+    lothar.onload = function () {
+
+        lotharunit = new Model(lothar, lothararray,false);
+
+        
+        
+    };
+
+
+
+
+
 
     var hub = $.connection.daggerHub;
 
@@ -272,6 +324,8 @@ $(function () {
     var leveldata = [];
     var levelwidth = 50;
     var levelheight = 50;
+
+    
     var wtfx = 200;
     var wtfy = 200;
     var wtfvx = 0;
@@ -420,6 +474,8 @@ $(function () {
                 d = new Date();
                 NEWUPDATE = d.getTime();
 
+                wtfface = parseInt(object.face);
+                wtfangle = parseFloat(object.angle);
 
 
                 wtfx = parseFloat(object.state.px);
@@ -673,7 +729,7 @@ $(function () {
 
 
 
-                hub.server.sendMouseAngle(currentangle, MYID, selectedability);
+                hub.server.sendMouseAngle(gunangle, MYID, selectedability);
 
 
             }
@@ -797,7 +853,7 @@ $(function () {
 
         
         
-
+        hub.server.sendGunAngle(MYID, gunangle);
         
 
     };
@@ -810,6 +866,8 @@ $(function () {
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
         currentangle = Math.atan2(mouseY - .5*CANVASHEIGHT, mouseX - .5*CANVASWIDTH);
+        gunangle = Math.atan2(mouseY - (.5 * CANVASHEIGHT-24), mouseX - (.5 * CANVASWIDTH-3) );
+
 
         d = new Date();
         var RENDERTIME = d.getTime() - NEWUPDATE;
@@ -945,16 +1003,24 @@ $(function () {
         ctx.font = "12px Arial";
         ctx.fillStyle = "black";
 
-        if (wtfleft == true) {
+        console.log("angle : " + wtfangle);
 
-            ctx.drawImage(playerleft, ((wtfx * RATIO) + (oldwtfx * (1 - RATIO)) - 8) - offsetx, ((wtfy * RATIO) + (oldwtfy * (1 - RATIO)) - 16) - offsety);
+        if ((gunangle > 1.57) || (gunangle < -1.57)) {
+
+            
+            lotharunitleft.draw(Math.floor(((wtfx * RATIO) + (oldwtfx * (1 - RATIO)) - 8) - offsetx), Math.floor(((wtfy * RATIO) + (oldwtfy * (1 - RATIO)) - 16) - offsety));
+
+            //ctx.drawImage(playerleft, ((wtfx * RATIO) + (oldwtfx * (1 - RATIO)) - 8) - offsetx, ((wtfy * RATIO) + (oldwtfy * (1 - RATIO)) - 16) - offsety);
 
 
         }
         else {
 
             //ctx.drawImage(player1, (wtfx  - 8) - offsetx, (wtfy  - 16) - offsety);
-            ctx.drawImage(player1, ((wtfx * RATIO) + (oldwtfx * (1 - RATIO)) - 8) - offsetx, ((wtfy * RATIO) + (oldwtfy * (1 - RATIO)) - 16) - offsety);
+
+            lotharunit.draw(Math.floor(((wtfx * RATIO) + (oldwtfx * (1 - RATIO)) - 8) - offsetx), Math.floor(((wtfy * RATIO) + (oldwtfy * (1 - RATIO)) - 16) - offsety));
+
+            //ctx.drawImage(player1, ((wtfx * RATIO) + (oldwtfx * (1 - RATIO)) - 8) - offsetx, ((wtfy * RATIO) + (oldwtfy * (1 - RATIO)) - 16) - offsety);
 
         }
 
@@ -1918,6 +1984,98 @@ function get2D(point) {
 }
 
 function Main() {
+
+
+}
+
+function Model(image, xcoordarray, isleft) {
+
+    var self = this;
+    this.frame = 0;
+    this.pimage = image;
+    this.imwidth = image.width;
+    this.imheight = image.height;
+    this.maxrange = 0;
+    this.isleft = isleft;
+
+    if (isleft) {
+        xcoordarray.sort(function (a, b) {
+            return (b[0] - a[0]);
+        });
+
+    }
+    else {
+        xcoordarray.sort(function (a, b) {
+            return (a[0] - b[0]);
+        });
+    }
+
+
+
+    this.coordarray = xcoordarray;
+    //store coords to all animations
+    //
+
+
+};
+
+Model.prototype.draw = function (x,y) {
+
+    if (this.isleft) {
+
+        ctx.drawImage(this.pimage, this.coordarray[Math.floor(this.frame)][0], 0, this.coordarray[Math.floor(this.frame)][2], 40, x - .5 * this.coordarray[Math.floor(this.frame)][2], y - 8, this.coordarray[Math.floor(this.frame)][2], 40);
+        //ctx.drawImage(this.pimage, this.coordarray[Math.floor(this.frame)][0], this.coordarray[Math.floor(this.frame)][1], this.coordarray[Math.floor(this.frame)][2], this.coordarray[Math.floor(this.frame)][3], x -  this.coordarray[Math.floor(this.frame)][2]+9, y - this.coordarray[Math.floor(this.frame)][3]+17, this.coordarray[Math.floor(this.frame)][2], this.coordarray[Math.floor(this.frame)][3]);
+        ctx.drawImage(lotharheadleft, x-.5*lotharheadleft.width-3, y - lotharhead.height + (this.coordarray[Math.floor(this.frame)][1] - this.coordarray[0][1]));
+
+        ctx.save();
+
+        ctx.translate(x + 2, y + 1 + (this.coordarray[Math.floor(this.frame)][1] - this.coordarray[0][1]));
+        //ctx.translate(x - 8 + 4 - .5 * (this.coordarray[Math.floor(this.frame)][2] - this.coordarray[0][2]), y - 16 + 3 + (this.coordarray[Math.floor(this.frame)][1] - this.coordarray[0][1]));
+
+        ctx.rotate(gunangle + Math.PI);
+
+        //ctx.drawImage(lothargun, x - 8 - .5*(this.coordarray[Math.floor(this.frame)][2] - this.coordarray[0][2]), y - 16 + (this.coordarray[Math.floor(this.frame)][1] - this.coordarray[0][1]));
+        ctx.drawImage(lothargunleft, 3 - lothargunleft.width, -3);
+        ctx.restore();
+
+
+    }
+    else {
+        
+        ctx.drawImage(this.pimage, this.coordarray[Math.floor(this.frame)][0], 0, this.coordarray[Math.floor(this.frame)][2], 40, x - .5 * this.coordarray[Math.floor(this.frame)][2], y - 8, this.coordarray[Math.floor(this.frame)][2], 40);
+        //ctx.drawImage(this.pimage, this.coordarray[Math.floor(this.frame)][0], this.coordarray[Math.floor(this.frame)][1], this.coordarray[Math.floor(this.frame)][2], this.coordarray[Math.floor(this.frame)][3], x -  this.coordarray[Math.floor(this.frame)][2]+9, y - this.coordarray[Math.floor(this.frame)][3]+17, this.coordarray[Math.floor(this.frame)][2], this.coordarray[Math.floor(this.frame)][3]);
+        ctx.drawImage(lotharhead, x - .5 * lotharhead.width+3, y - lotharhead.height + (this.coordarray[Math.floor(this.frame)][1] - this.coordarray[0][1]));
+
+        ctx.save();
+
+        ctx.translate(x - 2, y + 1 + (this.coordarray[Math.floor(this.frame)][1] - this.coordarray[0][1]));
+        //ctx.translate(x - 8 + 4 - .5 * (this.coordarray[Math.floor(this.frame)][2] - this.coordarray[0][2]), y - 16 + 3 + (this.coordarray[Math.floor(this.frame)][1] - this.coordarray[0][1]));
+
+        ctx.rotate(gunangle);
+
+        //ctx.drawImage(lothargun, x - 8 - .5*(this.coordarray[Math.floor(this.frame)][2] - this.coordarray[0][2]), y - 16 + (this.coordarray[Math.floor(this.frame)][1] - this.coordarray[0][1]));
+        ctx.drawImage(lothargun, -3, -3);
+        ctx.restore();
+
+        
+
+    }
+
+    if (wtfface < 0) {
+        this.frame += -.2;
+
+    }
+    else {
+        this.frame += .2;
+
+    }
+
+    if (this.frame >= this.coordarray.length) {
+        this.frame = 0;
+    }
+    else if (this.frame < 0) {
+        this.frame = this.coordarray.length - .2;
+    }
 
 
 }

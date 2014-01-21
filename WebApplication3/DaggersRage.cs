@@ -99,6 +99,17 @@ namespace daggersRage
 
         }
 
+        public static void SendGunAngle(int id, float rad)
+        {
+            PlayerObject result = (PlayerObject)daggersrage.playerArray.Find(x => x.id == id);
+
+            if (result != null)
+            {
+                result.playerInput.MOUSEANGLE = rad;
+            }
+
+        }
+
         public static void SendMouseAngle(float rad, int id, int num2)
         {
 
@@ -115,7 +126,7 @@ namespace daggersRage
 
                 if (num == 1)
                 {
-                    temp = new PointObject(daggersrage.getNextId(), result.currentstate.x_position, result.currentstate.y_position, rad, 300, "fireball", true, new Explosion(), id);
+                    temp = new PointObject(daggersrage.getNextId(), result.currentstate.x_position-12 + Math.Cos(rad)*16, result.currentstate.y_position-12 + Math.Sin(rad)*16, rad, 300, "fireball", true, new Explosion(), id);
 
                 }
                 else if (num == 2)

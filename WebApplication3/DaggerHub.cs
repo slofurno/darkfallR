@@ -91,6 +91,13 @@ namespace daggersRage
 
         }
 
+        public void SendGunAngle(int id, float rad)
+        {
+            DaggersRage.SendGunAngle(id, rad);
+
+
+        }
+
         public void ClassicFireball(int id)
         {
 

@@ -1733,13 +1733,7 @@ namespace daggersRage
 
                 hubcontext.Clients.All.updateState(uparray);
 
-                string tempstring = JsonConvert.SerializeObject(uparray);
-
-                Debug.WriteLine("length of new update : " + tempstring.Length);
-
-                tempstring = JsonConvert.SerializeObject(this.playerArray.ToArray());
-
-                Debug.WriteLine("length of old update : " + tempstring.Length);
+               
 
                 //hubcontext.Clients.All.updateState(this.playerArray.ToArray());
                 //hubcontext.Clients.All.updateProjectiles(this.pointArray.ToArray());
@@ -1755,14 +1749,7 @@ namespace daggersRage
                 hubcontext.Clients.All.updateProjectiles(uparray);
 
 
-                tempstring = JsonConvert.SerializeObject(uparray);
-
-                Debug.WriteLine("length of new point update : " + tempstring.Length);
-
-                tempstring = JsonConvert.SerializeObject(this.pointArray.ToArray());
-
                 
-                Debug.WriteLine("length of old point update : " + tempstring.Length);
 
 
 
@@ -1770,9 +1757,7 @@ namespace daggersRage
                 {
 
                     hubcontext.Clients.All.updateBlocks(this.updatedblocks.ToArray());
-                    tempstring = JsonConvert.SerializeObject(this.updatedblocks.ToArray());
-
-                    Debug.WriteLine("length of block update : " + tempstring.Length);
+                    
 
                     this.updatedblocks.Clear();
                 }
