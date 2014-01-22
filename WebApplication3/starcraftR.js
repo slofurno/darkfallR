@@ -30,6 +30,12 @@ var caststart = 0;
 
 var writeblock = false;
 
+var elitegun = new Image();
+elitegun.src = 'img/elitegun.png';
+
+var elitehead = new Image();
+elitehead.src = 'img/elitehead.png';
+
 var lothargun = new Image();
 lothargun.src = 'img/marinetwo.png';
 
@@ -41,6 +47,8 @@ lotharhead.src = 'img/marinehead.png';
 
 var lotharheadleft = new Image();
 lotharheadleft.src = 'img/marineheadleft.png';
+
+var offsetarray = [0,1,2,1,0,1,2,1];
 
 
 function State(state) {
@@ -277,8 +285,19 @@ $(function () {
     var lotharunit;
     var lotharunitleft;
 
-    var lothararray = [[175, 3, 19, 35], [146, 4, 20, 34], [27, 4, 16, 35], [112, 5, 25, 33], [4, 5, 18, 34], [46, 5, 26, 34], [77, 6, 30, 32], [202, 7, 21, 32]];
+    var eliteunit;
 
+    var elite = new Image();
+    elite.src = 'img/eliteonenew.png';
+
+    elite.onload = function () {
+
+        eliteunit = new Model2(elite, 41, 48);
+
+    };
+
+    //var lothararray = [[175, 3, 20, 35], [146, 4, 20, 34], [27, 4, 20, 35], [112, 5, 25, 33], [4, 5, 20, 34], [46, 5, 26, 34], [77, 6, 30, 32], [202, 7, 21, 32]];
+    var lothararray = [[175, 3, 19, 35], [146, 4, 20, 34], [27, 4, 16, 35], [112, 5, 25, 33], [4, 5, 18, 34], [46, 5, 26, 34], [77, 6, 30, 32], [202, 7, 21, 32]];
     var lotharleftarray = [[30, 3, 19, 35], [58, 4, 20, 34], [87, 5, 25, 33], [181, 4, 16, 35], [117, 6, 30, 32], [152, 5, 26, 34], [202, 5, 18, 34], [1, 7, 21, 32]];
 
     var lothar = new Image();
@@ -1008,7 +1027,10 @@ $(function () {
         if ((gunangle > 1.57) || (gunangle < -1.57)) {
 
             
-            lotharunitleft.draw(Math.floor(((wtfx * RATIO) + (oldwtfx * (1 - RATIO)) - 8) - offsetx), Math.floor(((wtfy * RATIO) + (oldwtfy * (1 - RATIO)) - 16) - offsety));
+            //lotharunitleft.draw(Math.floor(((wtfx * RATIO) + (oldwtfx * (1 - RATIO)) - 8) - offsetx), Math.floor(((wtfy * RATIO) + (oldwtfy * (1 - RATIO)) - 16) - offsety));
+
+
+            eliteunit.draw(Math.floor(((wtfx * RATIO) + (oldwtfx * (1 - RATIO)) ) - offsetx), Math.floor(((wtfy * RATIO) + (oldwtfy * (1 - RATIO)) ) - offsety),true);
 
             //ctx.drawImage(playerleft, ((wtfx * RATIO) + (oldwtfx * (1 - RATIO)) - 8) - offsetx, ((wtfy * RATIO) + (oldwtfy * (1 - RATIO)) - 16) - offsety);
 
@@ -1017,8 +1039,8 @@ $(function () {
         else {
 
             //ctx.drawImage(player1, (wtfx  - 8) - offsetx, (wtfy  - 16) - offsety);
-
-            lotharunit.draw(Math.floor(((wtfx * RATIO) + (oldwtfx * (1 - RATIO)) - 8) - offsetx), Math.floor(((wtfy * RATIO) + (oldwtfy * (1 - RATIO)) - 16) - offsety));
+            eliteunit.draw(Math.floor(((wtfx * RATIO) + (oldwtfx * (1 - RATIO)) ) - offsetx), Math.floor(((wtfy * RATIO) + (oldwtfy * (1 - RATIO)) ) - offsety),false);
+            //lotharunit.draw(Math.floor(((wtfx * RATIO) + (oldwtfx * (1 - RATIO)) - 8) - offsetx), Math.floor(((wtfy * RATIO) + (oldwtfy * (1 - RATIO)) - 16) - offsety));
 
             //ctx.drawImage(player1, ((wtfx * RATIO) + (oldwtfx * (1 - RATIO)) - 8) - offsetx, ((wtfy * RATIO) + (oldwtfy * (1 - RATIO)) - 16) - offsety);
 
@@ -1988,6 +2010,79 @@ function Main() {
 
 }
 
+function Model2(image, width, height) {
+
+    this.image = image;
+    this.width = width;
+    this.height = height;
+    this.frame = 0;
+
+
+}
+
+Model2.prototype.draw = function (x, y, isleft) {
+
+    18, 7
+
+    if (isleft) {
+        ctx.drawImage(this.image, Math.floor(this.frame) * this.width, this.height, this.width, this.height, x-.5*this.width, y-.5*this.height, this.width, this.height);
+
+        ctx.drawImage(elitehead, 0, .5 * elitehead.height, elitehead.width, .5 * elitehead.height, x - .5 * this.width + 19 - elitehead.width+4, y - .5 * this.height + -3 - offsetarray[Math.floor(this.frame)], elitehead.width, .5 * elitehead.height);
+
+        ctx.save();
+
+        ctx.translate(x - .5 * this.width + 18  + 4 - 3, y - .5 * this.height + 7 - offsetarray[Math.floor(this.frame)]+3);
+
+        ctx.rotate(gunangle+Math.PI);
+
+
+        ctx.drawImage(elitegun, 0, .5 * elitegun.height, elitegun.width, .5 * elitegun.height, 3-elitegun.width, -3, elitegun.width, .5 * elitegun.height);
+        ctx.restore();
+        //ctx.drawImage(elitegun, 0, .5 * elitegun.height, elitegun.width, .5 * elitegun.height, x - .5 * this.width + 18-elitegun.width+4, y - .5 * this.height + 7 - offsetarray[Math.floor(this.frame)], elitegun.width, .5 * elitegun.height);
+
+        this.frame -= .2;
+
+    }
+    else {
+
+        ctx.drawImage(this.image, Math.floor(this.frame) * this.width, 0, this.width, this.height, x-.5*this.width, y-.5*this.height, this.width, this.height);
+
+       
+
+        ctx.drawImage(elitehead, 0, 0, elitehead.width, .5 * elitehead.height, x - .5 * this.width + 19, y - .5 * this.height + -3 - offsetarray[Math.floor(this.frame)], elitehead.width, .5 * elitehead.height);
+
+
+        ctx.save();
+
+        ctx.translate(x - .5 * this.width + 18 + 3, y - .5 * this.height + 7 - offsetarray[Math.floor(this.frame)]+3);
+        
+        ctx.rotate(gunangle);
+
+        
+        ctx.drawImage(elitegun, 0, 0, elitegun.width, .5 * elitegun.height, -3,-3, elitegun.width, .5 * elitegun.height);
+        ctx.restore();
+        //ctx.drawImage(elitegun, 0, 0, elitegun.width, .5 * elitegun.height, x - .5 * this.width + 18, y - .5 * this.height + 7 - offsetarray[Math.floor(this.frame)], elitegun.width, .5 * elitegun.height);
+
+
+
+
+        this.frame += .2;
+    }
+
+    
+
+
+
+    if (this.frame >= 8) {
+        this.frame = 0;
+    }
+    else if (this.frame < 0) {
+
+        this.frame = 7.8;
+    }
+
+};
+
 function Model(image, xcoordarray, isleft) {
 
     var self = this;
@@ -1998,9 +2093,11 @@ function Model(image, xcoordarray, isleft) {
     this.maxrange = 0;
     this.isleft = isleft;
 
+    
+
     if (isleft) {
         xcoordarray.sort(function (a, b) {
-            return (b[0] - a[0]);
+            return (a[0] - b[0]);
         });
 
     }

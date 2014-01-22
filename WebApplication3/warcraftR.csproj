@@ -110,6 +110,9 @@
     <Content Include="img\dark.png" />
     <Content Include="img\dark2.png" />
     <Content Include="img\dirt.png" />
+    <Content Include="img\elitegun.png" />
+    <Content Include="img\elitehead.png" />
+    <Content Include="img\eliteonenew.png" />
     <Content Include="img\grass.bmp" />
     <Content Include="img\grass.PNG" />
     <Content Include="img\grass_side.png" />
