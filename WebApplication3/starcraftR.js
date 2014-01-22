@@ -48,7 +48,7 @@ lotharhead.src = 'img/marinehead.png';
 var lotharheadleft = new Image();
 lotharheadleft.src = 'img/marineheadleft.png';
 
-var offsetarray = [0,1,2,1,0,1,2,1];
+var offsetarray = [1,2,1,0,1,2,1,0];
 
 
 function State(state) {
@@ -2022,16 +2022,16 @@ function Model2(image, width, height) {
 
 Model2.prototype.draw = function (x, y, isleft) {
 
-    18, 7
+    
 
     if (isleft) {
         ctx.drawImage(this.image, Math.floor(this.frame) * this.width, this.height, this.width, this.height, x-.5*this.width, y-.5*this.height, this.width, this.height);
 
-        ctx.drawImage(elitehead, 0, .5 * elitehead.height, elitehead.width, .5 * elitehead.height, x - .5 * this.width + 19 - elitehead.width+4, y - .5 * this.height + -3 - offsetarray[Math.floor(this.frame)], elitehead.width, .5 * elitehead.height);
+        ctx.drawImage(elitehead, 0, .5 * elitehead.height, elitehead.width, .5 * elitehead.height, x - .5 * this.width + 19 - elitehead.width+4, y - .5 * this.height + -3 - offsetarray[7-Math.floor(this.frame)], elitehead.width, .5 * elitehead.height);
 
         ctx.save();
 
-        ctx.translate(x - .5 * this.width + 18  + 4 - 3, y - .5 * this.height + 7 - offsetarray[Math.floor(this.frame)]+3);
+        ctx.translate(x - .5 * this.width + 18  + 4 - 3, y - .5 * this.height + 7 - offsetarray[7-Math.floor(this.frame)]+3);
 
         ctx.rotate(gunangle+Math.PI);
 

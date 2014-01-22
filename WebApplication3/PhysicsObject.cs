@@ -219,7 +219,7 @@ namespace daggersRage
             this.invul = false;
             this.invultimer = 0;
 
-            this.halfheight = 16;
+            this.halfheight = 24;
             this.halfwidth = 8;
 
             

@@ -1383,6 +1383,7 @@ namespace daggersRage
                         if (singleplayer.desiredstate.x_velocity > 0)
                         {
                             tempindex = getBlockIndex(singleplayer.desiredstate.x_position + singleplayer.halfwidth, singleplayer.desiredstate.y_position);
+                            tempindexi = getBlockIndex(singleplayer.desiredstate.x_position + singleplayer.halfwidth, singleplayer.desiredstate.y_position-singleplayer.halfheight);
                             //moving right, check right face
                             if (blockarray[tempindex.x][tempindex.y] > 1)
                             {
@@ -1392,11 +1393,19 @@ namespace daggersRage
                                 singleplayer.desiredstate.x_velocity = singleplayer.collisioncoefficient * -1 * singleplayer.desiredstate.x_velocity;
 
                             }
+                            else if (blockarray[tempindexi.x][tempindexi.y] > 1)
+                            {
+                                singleplayer.x_force = 0;
+                                singleplayer.desiredstate.x_position = ((tempindexi.x - 1) * 16 + halfblock);
+                                singleplayer.desiredstate.x_velocity = singleplayer.collisioncoefficient * -1 * singleplayer.desiredstate.x_velocity;
+
+                            }
 
                         }
                         else if (singleplayer.desiredstate.x_velocity < 0)
                         {
                             tempindex = getBlockIndex(singleplayer.desiredstate.x_position - singleplayer.halfwidth, singleplayer.desiredstate.y_position);
+                            tempindexi = getBlockIndex(singleplayer.desiredstate.x_position - singleplayer.halfwidth, singleplayer.desiredstate.y_position - singleplayer.halfheight);
                             //moving left, check left face
                             if (blockarray[tempindex.x][tempindex.y] > 1)
                             {
@@ -1405,13 +1414,26 @@ namespace daggersRage
                                 singleplayer.desiredstate.x_position = (tempindex.x + 1) * 16 + halfblock;
                                 singleplayer.desiredstate.x_velocity = singleplayer.collisioncoefficient * -1 * singleplayer.desiredstate.x_velocity;
                             }
+                            else if (blockarray[tempindexi.x][tempindexi.y] > 1)
+                            {
+                                singleplayer.x_force = 0;
+                                singleplayer.desiredstate.x_position = ((tempindexi.x + 1) * 16 + halfblock);
+                                singleplayer.desiredstate.x_velocity = singleplayer.collisioncoefficient * -1 * singleplayer.desiredstate.x_velocity;
+
+                            }
 
                         }
+                        
+
+                        
+
+                        
 
                         if (singleplayer.desiredstate.y_velocity >= 0)
                         {
                             tempindex = getBlockIndex(singleplayer.currentstate.x_position + singleplayer.halfwidth-3, singleplayer.desiredstate.y_position + singleplayer.halfheight);
                             tempindexi = getBlockIndex(singleplayer.currentstate.x_position - singleplayer.halfwidth + 3, singleplayer.desiredstate.y_position + singleplayer.halfheight);
+                            
                             //moving down, check bottom face
                             if ((blockarray[tempindex.x][tempindex.y] > 1)||(blockarray[tempindexi.x][tempindexi.y] > 1))
                             {
@@ -1424,7 +1446,7 @@ namespace daggersRage
                                 singleplayer.grounded = true;
                                 
                             }
-                            else if ((blockarray[tempindex.x][tempindex.y] > 1) || (blockarray[tempindexi.x][tempindexi.y] > 0))
+                            else if ((blockarray[tempindex.x][tempindex.y] > 0) || (blockarray[tempindexi.x][tempindexi.y] > 0))
                             {
 
                                 if (singleplayer.getDown())
@@ -1466,6 +1488,30 @@ namespace daggersRage
                                 }
                             }
 
+                        }
+
+
+                        //this will make it so player can climb single blocks
+                        tempindex = getBlockIndex(singleplayer.currentstate.x_position + singleplayer.halfwidth - 3, singleplayer.currentstate.y_position + singleplayer.halfheight - 5);
+                        tempindexi = getBlockIndex(singleplayer.currentstate.x_position - singleplayer.halfwidth + 3, singleplayer.currentstate.y_position + singleplayer.halfheight - 5);
+                        //moving down, check bottom face
+
+                        Debug.WriteLine("current : " + blockarray[tempindex.x][tempindex.y]);
+
+                        if (singleplayer.grounded)
+                        {
+
+                            if ((blockarray[tempindex.x][tempindex.y] > 1) || (blockarray[tempindexi.x][tempindexi.y] > 1))
+                            {
+                                //top edge of bottom block
+
+
+
+                                singleplayer.desiredstate.y_position = ((tempindex.y - 1) * 16) + (16 - singleplayer.halfheight);
+                                singleplayer.desiredstate.y_velocity = 0;
+                                singleplayer.grounded = true;
+
+                            }
                         }
 
 
