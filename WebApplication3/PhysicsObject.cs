@@ -259,58 +259,69 @@ namespace daggersRage
                 this.invultimer--;
             }
 
-            if (playerInput.LEFTKEY == true)
+            if (playerInput.DOWNKEY == true)
             {
-
-                if (currentstate.x_velocity > 0)
-                {
-                    x_force += -runspeed;
-
-                }
-                else if (currentstate.x_velocity > -runspeed)
-                {
-                    desiredstate.x_velocity = -runspeed;
-
-                }
-
-                this.face = -1;
-
-
-
-            }
-            else if (playerInput.RIGHTKEY == true)
-            {
-
-                if (currentstate.x_velocity < 0)
-                {
-                    x_force += runspeed;
-
-                }
-                else if (currentstate.x_velocity < runspeed)
-                {
-                    desiredstate.x_velocity = runspeed;
-
-                }
-
-                this.face = 1;
-
+                this.halfheight = 18;
+                this.action = 1;
 
             }
             else
             {
-                if (currentstate.x_velocity > runspeed)
+
+                if (playerInput.LEFTKEY == true)
                 {
-                    desiredstate.x_velocity += -runspeed;
+
+                    if (currentstate.x_velocity > 0)
+                    {
+                        x_force += -runspeed;
+
+                    }
+                    else if (currentstate.x_velocity > -runspeed)
+                    {
+                        desiredstate.x_velocity = -runspeed;
+
+                    }
+
+                    this.face = -1;
+
+
+
                 }
-                else if (currentstate.x_velocity < -runspeed)
+                else if (playerInput.RIGHTKEY == true)
                 {
-                    desiredstate.x_velocity += runspeed;
+
+                    if (currentstate.x_velocity < 0)
+                    {
+                        x_force += runspeed;
+
+                    }
+                    else if (currentstate.x_velocity < runspeed)
+                    {
+                        desiredstate.x_velocity = runspeed;
+
+                    }
+
+                    this.face = 1;
+
+
                 }
                 else
                 {
-                    desiredstate.x_velocity = 0;
-                }
+                    if (currentstate.x_velocity > runspeed)
+                    {
+                        desiredstate.x_velocity += -runspeed;
+                    }
+                    else if (currentstate.x_velocity < -runspeed)
+                    {
+                        desiredstate.x_velocity += runspeed;
+                    }
+                    else
+                    {
+                        desiredstate.x_velocity = 0;
+                    }
 
+
+                }
 
             }
         
@@ -339,12 +350,7 @@ namespace daggersRage
             {
                 this.hasreleasedjump = true;
             }
-            else if (playerInput.DOWNKEY == true)
-            {
-                this.halfheight = 18;
-                this.action = 1;
-
-            }
+        
 
             
            

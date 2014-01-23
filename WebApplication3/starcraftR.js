@@ -2130,26 +2130,46 @@ Model2.prototype.draw = function (x, y, isleft, myaction) {
 
     }
     else {
-
-        ctx.drawImage(this.image, Math.floor(this.frame) * this.width, 0, this.width, this.height, x-.5*this.width, y-.5*this.height, this.width, this.height);
-
-       
-
-        ctx.drawImage(elitehead, 0, 0, elitehead.width, .5 * elitehead.height, x - .5 * this.width + 19, y - .5 * this.height + -3 - offsetarray[Math.floor(this.frame)], elitehead.width, .5 * elitehead.height);
+        if (myaction > 0) {
+            ctx.drawImage(elitecrouch, 0, 0, this.width, this.height, x - .5 * this.width, y - .5 * this.height, this.width, this.height);
 
 
-        ctx.save();
 
-        ctx.translate(x - .5 * this.width + 18 + 3, y - .5 * this.height + 7 - offsetarray[Math.floor(this.frame)]+3);
-        
-        ctx.rotate(gunangle);
-
-        
-        ctx.drawImage(elitegun, 0, 0, elitegun.width, .5 * elitegun.height, -3,-3, elitegun.width, .5 * elitegun.height);
-        ctx.restore();
-        //ctx.drawImage(elitegun, 0, 0, elitegun.width, .5 * elitegun.height, x - .5 * this.width + 18, y - .5 * this.height + 7 - offsetarray[Math.floor(this.frame)], elitegun.width, .5 * elitegun.height);
+            ctx.drawImage(elitehead, 0, 0, elitehead.width, .5 * elitehead.height, x - .5 * this.width + 19, y - .5 * this.height + -3 +10, elitehead.width, .5 * elitehead.height);
 
 
+            ctx.save();
+
+            ctx.translate(x - .5 * this.width + 18 + 3, y - .5 * this.height + 7 +10 + 3);
+
+            ctx.rotate(gunangle);
+
+
+            ctx.drawImage(elitegun, 0, 0, elitegun.width, .5 * elitegun.height, -3, -3, elitegun.width, .5 * elitegun.height);
+            ctx.restore();
+            //ctx.drawImage(elitegun, 0, 0, elitegun.width, .5 * elitegun.height, x - .5 * this.width + 18, y - .5 * this.height + 7 - offsetarray[Math.floor(this.frame)], elitegun.width, .5 * elitegun.height);
+
+        }
+        else {
+
+            ctx.drawImage(this.image, Math.floor(this.frame) * this.width, 0, this.width, this.height, x - .5 * this.width, y - .5 * this.height, this.width, this.height);
+
+
+
+            ctx.drawImage(elitehead, 0, 0, elitehead.width, .5 * elitehead.height, x - .5 * this.width + 19, y - .5 * this.height + -3 - offsetarray[Math.floor(this.frame)], elitehead.width, .5 * elitehead.height);
+
+
+            ctx.save();
+
+            ctx.translate(x - .5 * this.width + 18 + 3, y - .5 * this.height + 7 - offsetarray[Math.floor(this.frame)] + 3);
+
+            ctx.rotate(gunangle);
+
+
+            ctx.drawImage(elitegun, 0, 0, elitegun.width, .5 * elitegun.height, -3, -3, elitegun.width, .5 * elitegun.height);
+            ctx.restore();
+
+        }
 
 
         this.frame += .2;
@@ -2212,22 +2232,45 @@ Model2.prototype.draw2 = function (x, y, myaction, angle, frame) {
     }
     else {
 
-        ctx.drawImage(this.image, Math.floor(frame) * this.width, 0, this.width, this.height, x - .5 * this.width, y - .5 * this.height, this.width, this.height);
+        if (myaction > 0) {
+
+            ctx.drawImage(elitecrouch, 0, 0, this.width, this.height, x - .5 * this.width, y - .5 * this.height, this.width, this.height);
 
 
 
-        ctx.drawImage(elitehead, 0, 0, elitehead.width, .5 * elitehead.height, x - .5 * this.width + 19, y - .5 * this.height + -3 - offsetarray[Math.floor(frame)], elitehead.width, .5 * elitehead.height);
+            ctx.drawImage(elitehead, 0, 0, elitehead.width, .5 * elitehead.height, x - .5 * this.width + 19, y - .5 * this.height + -3 +10, elitehead.width, .5 * elitehead.height);
 
 
-        ctx.save();
+            ctx.save();
 
-        ctx.translate(x - .5 * this.width + 18 + 3, y - .5 * this.height + 7 - offsetarray[Math.floor(frame)] + 3);
+            ctx.translate(x - .5 * this.width + 18 + 3, y - .5 * this.height + 7 +10 + 3);
 
-        ctx.rotate(angle);
+            ctx.rotate(angle);
 
 
-        ctx.drawImage(elitegun, 0, 0, elitegun.width, .5 * elitegun.height, -3, -3, elitegun.width, .5 * elitegun.height);
-        ctx.restore();
+            ctx.drawImage(elitegun, 0, 0, elitegun.width, .5 * elitegun.height, -3, -3, elitegun.width, .5 * elitegun.height);
+            ctx.restore();
+        }
+        else {
+
+            ctx.drawImage(this.image, Math.floor(frame) * this.width, 0, this.width, this.height, x - .5 * this.width, y - .5 * this.height, this.width, this.height);
+
+
+
+            ctx.drawImage(elitehead, 0, 0, elitehead.width, .5 * elitehead.height, x - .5 * this.width + 19, y - .5 * this.height + -3 - offsetarray[Math.floor(frame)], elitehead.width, .5 * elitehead.height);
+
+
+            ctx.save();
+
+            ctx.translate(x - .5 * this.width + 18 + 3, y - .5 * this.height + 7 - offsetarray[Math.floor(frame)] + 3);
+
+            ctx.rotate(angle);
+
+
+            ctx.drawImage(elitegun, 0, 0, elitegun.width, .5 * elitegun.height, -3, -3, elitegun.width, .5 * elitegun.height);
+            ctx.restore();
+
+        }
         //ctx.drawImage(elitegun, 0, 0, elitegun.width, .5 * elitegun.height, x - .5 * this.width + 18, y - .5 * this.height + 7 - offsetarray[Math.floor(this.frame)], elitegun.width, .5 * elitegun.height);
 
 
