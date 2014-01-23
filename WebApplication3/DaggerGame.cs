@@ -1362,7 +1362,10 @@ namespace daggersRage
 
                 foreach (PhysicsObject singleplayer in playerArray)
                 {
-                    singleplayer.Update(dt);
+                    if (singleplayer.life > 0)
+                    {
+                        singleplayer.Update(dt);
+                    }
                 }
 
 
@@ -1496,7 +1499,7 @@ namespace daggersRage
                         tempindexi = getBlockIndex(singleplayer.currentstate.x_position - singleplayer.halfwidth + 3, singleplayer.currentstate.y_position + singleplayer.halfheight - 5);
                         //moving down, check bottom face
 
-                        Debug.WriteLine("current : " + blockarray[tempindex.x][tempindex.y]);
+                        //Debug.WriteLine("current : " + blockarray[tempindex.x][tempindex.y]);
 
                         if (singleplayer.grounded)
                         {
@@ -1518,7 +1521,7 @@ namespace daggersRage
                         foreach (PhysicsObject compareplayer in playerArray)
                         {
 
-                            if ((singleplayer.id == compareplayer.id) || (compareplayer.invultimer > 0))
+                            if ((singleplayer.id == compareplayer.id) || (compareplayer.invultimer > 0)||(compareplayer.life <= 0))
                             {
                                 //skip self compares
 
@@ -1577,10 +1580,12 @@ namespace daggersRage
                                     //jumping on another player or mobs head
                                     if (singleplayer.type == "player")
                                     {
+                                        /*
                                         compareplayer.life--;
                                         compareplayer.RegisterHit(singleplayer);
 
                                         singleplayer.desiredstate.y_velocity = -200;
+                                         * */
                                         singleplayer.desiredstate.y_position = compareplayer.desiredstate.y_position - (singleplayer.halfheight + compareplayer.halfheight);
                                         //compareplayer.desiredstate.y_velocity = 5;
                                     }
@@ -1604,10 +1609,12 @@ namespace daggersRage
                 {
 
 
-                    
+                    if (singleplayer.life > 0)
+                    {
 
-                    singleplayer.currentstate = singleplayer.desiredstate;
-                    singleplayer.desiredstate = new PhysicalState();
+                        singleplayer.currentstate = singleplayer.desiredstate;
+                        singleplayer.desiredstate = new PhysicalState();
+                    }
 
 
                 }
@@ -1689,6 +1696,7 @@ namespace daggersRage
                                         else
                                         {
                                             handleCollision(p.effect, p.desiredstate.x_position, p.desiredstate.y_position);
+                                            po.life -= 3;
                                             p.life--;
                                             break;
                                             //p.life--;

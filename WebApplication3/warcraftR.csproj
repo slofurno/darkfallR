@@ -98,6 +98,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="backups\starcraftR.js" />
     <Content Include="backups\text.txt" />
     <Content Include="backups\TextFile1.txt" />
     <Content Include="backups\warcraftR.js" />
@@ -110,6 +111,7 @@
     <Content Include="img\dark.png" />
     <Content Include="img\dark2.png" />
     <Content Include="img\dirt.png" />
+    <Content Include="img\elitecrouch.png" />
     <Content Include="img\elitegun.png" />
     <Content Include="img\elitehead.png" />
     <Content Include="img\eliteonenew.png" />

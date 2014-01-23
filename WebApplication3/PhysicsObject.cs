@@ -32,6 +32,7 @@ namespace daggersRage
         public int castingspell = 0;
         public int face = 1;
         public float lookangle = 0;
+        public int action = 0;
 
         public PhysicsObject()
         {
@@ -245,7 +246,8 @@ namespace daggersRage
         public override void Update(double dt)
         {
             this.invul = false;
-
+            this.halfheight = 24;
+            this.action = 0;
             this.lookangle = this.playerInput.MOUSEANGLE;
 
             desiredstate.y_velocity = currentstate.y_velocity;
@@ -336,6 +338,12 @@ namespace daggersRage
             else if (this.hasreleasedjump == false)
             {
                 this.hasreleasedjump = true;
+            }
+            else if (playerInput.DOWNKEY == true)
+            {
+                this.halfheight = 18;
+                this.action = 1;
+
             }
 
             
@@ -573,6 +581,7 @@ namespace daggersRage
         public string name;
         public int face;
         public float angle;
+        public int action;
 
 
         public UpdatePacket(PhysicsObject p)
@@ -586,7 +595,7 @@ namespace daggersRage
             this.name = p.name;
             this.face = p.face;
             this.angle = p.lookangle;
-
+            this.action = p.action;
 
         }
 

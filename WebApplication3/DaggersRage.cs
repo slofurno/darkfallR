@@ -122,43 +122,46 @@ namespace daggersRage
             if (result != null)
             {
 
-                int num = result.castingspell;
-
-                if (num == 1)
+                if (result.life > 0)
                 {
-                    temp = new PointObject(daggersrage.getNextId(), result.currentstate.x_position-12 + Math.Cos(rad)*16, result.currentstate.y_position-12 + Math.Sin(rad)*16, rad, 300, "fireball", true, new Explosion(), id);
 
+                    int num = num2;
+
+                    if (num == 1)
+                    {
+                        temp = new PointObject(daggersrage.getNextId(), result.currentstate.x_position - 12 + Math.Cos(rad) * 16, result.currentstate.y_position +48 - 2*result.halfheight - 16 + Math.Sin(rad) * 16, rad, 300, "fireball", false, new Explosion(), id);
+
+                    }
+                    else if (num == 2)
+                    {
+                        temp = new PointObject(daggersrage.getNextId(), result.currentstate.x_position, result.currentstate.y_position, rad, 300, "fireball", false, new Explosion(), id);
+
+                    }
+                    else if (num == 3)
+                    {
+                        temp = new PointObject(daggersrage.getNextId(), result.currentstate.x_position, result.currentstate.y_position, rad, 300, "fireball", false, new Explosion(), id);
+
+                    }
+                    else if (num == 4)
+                    {
+                        temp = new PointObject(daggersrage.getNextId(), result.currentstate.x_position, result.currentstate.y_position, rad, 500, "launch", false, new Launch(), id);
+
+                    }
+
+
+                    else
+                    {
+                        temp = new PointObject(daggersrage.getNextId(), result.currentstate.x_position, result.currentstate.y_position, rad, 300, "fireball", false, new Explosion(), id);
+
+
+                    }
+
+                    result.castingspell = 0;
+                    daggersrage.pointArray.Add(temp);
+
+
+                    context.Clients.All.addProjectile(temp.id, temp.currentstate, temp.name);
                 }
-                else if (num == 2)
-                {
-                    temp = new PointObject(daggersrage.getNextId(), result.currentstate.x_position, result.currentstate.y_position, rad, 300, "fireball", false, new Explosion(), id);
-
-                }
-                else if (num == 3)
-                {
-                    temp = new PointObject(daggersrage.getNextId(), result.currentstate.x_position, result.currentstate.y_position, rad, 300, "fireball", false, new Explosion(), id);
-
-                }
-                else if (num == 4)
-                {
-                    temp = new PointObject(daggersrage.getNextId(), result.currentstate.x_position, result.currentstate.y_position, rad, 500, "launch", false, new Launch(), id);
-
-                }
-
-
-                else
-                {
-                    temp = new PointObject(daggersrage.getNextId(), result.currentstate.x_position, result.currentstate.y_position, rad, 300, "fireball", false, new Explosion(), id);
-
-
-                }
-
-                result.castingspell = 0;
-                daggersrage.pointArray.Add(temp);
-
-
-                context.Clients.All.addProjectile(temp.id, temp.currentstate, temp.name);
-
 
 
 
